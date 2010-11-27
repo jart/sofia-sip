@@ -404,6 +404,17 @@ void nua_application_event(nua_t *dummy, su_msg_r sumsg, nua_ee_data_t *ee)
   nua_stack_unref(nua);
 }
 
+/** Get list of SIP listen addresses @NEW_1_12_10.
+ *
+ * @sa #sip_contact_t
+ */
+sip_contact_t *nua_local_contacts(su_home_t *home, nua_t const *nua)
+{
+  if (home && nua)
+    return nua_stack_local_contacts(home, nua->nua_registrations);
+  return NULL;
+}
+
 /** Get current request message. @NEW_1_12_4.
  *
  * @note A response message is returned when processing response message.

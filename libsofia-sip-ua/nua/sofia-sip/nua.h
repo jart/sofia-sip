@@ -38,6 +38,9 @@
 #include <sofia-sip/su_wait.h>
 #endif
 
+#ifndef SU_ALLOC_H
+#include <sofia-sip/su_alloc.h>
+#endif
 
 #ifndef URL_H
 #include <sofia-sip/url.h>
@@ -376,6 +379,9 @@ SOFIAPUBFUN msg_t *nua_saved_event_request(nua_saved_event_t const *saved);
 
 /** Get current request message. */
 SOFIAPUBFUN  msg_t *nua_current_request(nua_t const *nua);
+
+/** Get the real list of SIP listen contacts */
+SOFIAPUBFUN sip_contact_t *nua_local_contacts(su_home_t *home, nua_t const *nua);
 
 SOFIAPUBFUN sip_replaces_t *nua_handle_make_replaces(nua_handle_t *nh,
 						     su_home_t *home,

@@ -291,6 +291,9 @@ nua_registration_t *nua_registration_by_aor(nua_registration_t const *list,
 
 sip_contact_t const *nua_registration_contact(nua_registration_t const *nr);
 
+sip_contact_t *nua_stack_local_contacts(su_home_t *home,
+					nua_registration_t const *nr);
+
 int nua_registration_process_request(nua_registration_t *nr,
 				     nta_incoming_t *irq,
 				     sip_t const *sip);

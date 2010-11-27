@@ -1628,6 +1628,25 @@ sip_contact_t const *nua_stack_get_contact(nua_registration_t const *nr)
   return nr && nr->nr_contact ? nr->nr_dcontact : NULL;
 }
 
+sip_contact_t *nua_stack_local_contacts(su_home_t *home,
+					nua_registration_t const *nr)
+{
+  if (!home || !nr) {
+    return NULL;
+  }
+  sip_contact_t *res = NULL;
+  sip_contact_t **lnext = &res;
+  for (; nr; nr = nr->nr_next) {
+    sip_contact_t *c = sip_contact_dup(home, nr->nr_contact);
+    if (c) {
+      assert(!c->m_next);
+      *lnext = c;
+      lnext = &c->m_next;
+    }
+  }
+  return res;
+}
+
 /** Add a Contact (and Route) header to request */
 int nua_registration_add_contact_to_request(nua_handle_t *nh,
 					    msg_t *msg,
